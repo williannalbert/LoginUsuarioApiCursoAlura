@@ -1,0 +1,30 @@
+﻿ANOTAÇÕES
+
+PACOTES NUGET
+
+AutoMapper.Extensions.Microsoft.DependencyInjection - Versão 12.0.0
+
+Microsoft.AspNetCore.Identity.EntityFrameworkCore - Versão 6.0.14
+
+Microsoft.EntityFrameworkCore.Tools - Versão 6.0.14
+
+Microsoft.Extensions.Identity.Stores - Versão 6.0.14
+
+Pomelo.EntityFrameworkCore.MySql - Versão 6.0.2
+----------------------------------------------------
+Observações/Dicas
+
+Adicionar na classe program.cs
+
+dbcontext  
+chamada identity 
+entityframeworkstores
+defaulttokenproviders
+
+*lembrando que a extension dele é diferente por conta da autenticação
+**Classe usuário extende de IdentityUser devido as propriedades padrões
+
+ConnectionString são configuradas na appsettings
+
+
+
