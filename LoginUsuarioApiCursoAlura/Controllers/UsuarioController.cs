@@ -1,16 +1,28 @@
-﻿using LoginUsuarioApiCursoAlura.Data.DTOs;
+﻿using AutoMapper;
+using LoginUsuarioApiCursoAlura.Data.DTOs;
+using LoginUsuarioApiCursoAlura.Models;
+using LoginUsuarioApiCursoAlura.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoginUsuarioApiCursoAlura.Controllers
 {
     [ApiController]
-    [Route("Controller")]
+    [Route("[Controller]")]
     public class UsuarioController : Controller
     {
-        [HttpPost]
-        public IActionResult CadastrarUsuario(CreateUsuarioDTO userDTO)
+        private CadastroService _cadastroService;
+
+        public UsuarioController(CadastroService cadastroService)
         {
-            throw new NotImplementedException();
+            _cadastroService = cadastroService;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CadastrarUsuario(CreateUsuarioDTO userDTO)
+        {
+            await _cadastroService.Cadastrar(userDTO);
+            return Ok("Cadastro realizado com sucesso");
         }
     }
 }

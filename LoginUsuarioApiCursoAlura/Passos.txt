@@ -20,11 +20,16 @@ dbcontext
 chamada identity 
 entityframeworkstores
 defaulttokenproviders
+automapper
 
 *lembrando que a extension dele é diferente por conta da autenticação
 **Classe usuário extende de IdentityUser devido as propriedades padrões
 
 ConnectionString são configuradas na appsettings
 
+Ver diferenças entre addscoped, addtransient e addsiglet - são usadas no program
 
+-------------------------------
+DOCUMENTAÇÃO SOBRE SENHA E REQUISITOS
+https://learn.microsoft.com/pt-br/aspnet/core/security/authentication/identity-configuration?view=aspnetcore-7.0#password
 
