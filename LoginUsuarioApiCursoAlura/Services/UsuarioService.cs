@@ -5,15 +5,17 @@ using Microsoft.AspNetCore.Identity;
 
 namespace LoginUsuarioApiCursoAlura.Services
 {
-    public class CadastroService
+    public class UsuarioService
     {
         private IMapper _mapper;
         private UserManager<Usuario> _userManager;
+        private SignInManager<Usuario> _signInManager;
 
-        public CadastroService(UserManager<Usuario> userManager, IMapper mapper)
+        public UsuarioService(UserManager<Usuario> userManager, IMapper mapper, SignInManager<Usuario> signInManager)
         {
             _userManager = userManager;
             _mapper = mapper;
+            _signInManager = signInManager;
         }
 
         public async Task Cadastrar(CreateUsuarioDTO userDTO)
@@ -24,6 +26,15 @@ namespace LoginUsuarioApiCursoAlura.Services
 
             if (!retorno.Succeeded)
                  throw new ApplicationException("Falha ao cadastrar usuário");
+        }
+
+        public async Task LoginAsync(LoginUsuarioDTO loginUsuarioDTO)
+        {
+            var resultado = await _signInManager.PasswordSignInAsync(loginUsuarioDTO.Username, 
+                loginUsuarioDTO.Password, false, false);
+
+            if (!resultado.Succeeded)
+                throw new ApplicationException("Usuário não autenticado");
         }
     }
 }
