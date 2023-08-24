@@ -27,8 +27,8 @@ namespace LoginUsuarioApiCursoAlura.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginUsuarioDTO loginUsuarioDTO) 
         {
-            await _usuarioService.LoginAsync(loginUsuarioDTO);
-            return Ok("Usuário Logado");
+            var token = await _usuarioService.LoginAsync(loginUsuarioDTO);
+            return Ok(token);
         }
     }
 }

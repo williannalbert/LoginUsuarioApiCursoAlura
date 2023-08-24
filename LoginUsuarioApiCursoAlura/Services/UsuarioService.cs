@@ -10,12 +10,14 @@ namespace LoginUsuarioApiCursoAlura.Services
         private IMapper _mapper;
         private UserManager<Usuario> _userManager;
         private SignInManager<Usuario> _signInManager;
+        private TokenService _tokenService;
 
-        public UsuarioService(UserManager<Usuario> userManager, IMapper mapper, SignInManager<Usuario> signInManager)
+        public UsuarioService(UserManager<Usuario> userManager, IMapper mapper, SignInManager<Usuario> signInManager, TokenService tokenService)
         {
             _userManager = userManager;
             _mapper = mapper;
             _signInManager = signInManager;
+            _tokenService = tokenService;
         }
 
         public async Task Cadastrar(CreateUsuarioDTO userDTO)
@@ -28,13 +30,21 @@ namespace LoginUsuarioApiCursoAlura.Services
                  throw new ApplicationException("Falha ao cadastrar usuário");
         }
 
-        public async Task LoginAsync(LoginUsuarioDTO loginUsuarioDTO)
+        public async Task<string> LoginAsync(LoginUsuarioDTO loginUsuarioDTO)
         {
             var resultado = await _signInManager.PasswordSignInAsync(loginUsuarioDTO.Username, 
                 loginUsuarioDTO.Password, false, false);
 
             if (!resultado.Succeeded)
                 throw new ApplicationException("Usuário não autenticado");
+
+            var usuario = _signInManager.UserManager.Users.FirstOrDefault(
+                user => user.NormalizedUserName == loginUsuarioDTO.Username.ToUpper()
+                );
+
+            var token =_tokenService.GenerateToken(usuario);
+
+            return token;
         }
     }
 }
