@@ -13,6 +13,8 @@ Microsoft.Extensions.Identity.Stores - Versão 6.0.14
 Pomelo.EntityFrameworkCore.MySql - Versão 6.0.2
 
 System.IdentityModel.Tokens.Jwt - 6.27.0
+
+Microsoft.AspNetCore.Authentication.JwtBearer - Versão 6.0.14
 ----------------------------------------------------
 Observações/Dicas
 
@@ -34,4 +36,20 @@ Ver diferenças entre addscoped, addtransient e addsiglet - são usadas no progr
 -------------------------------
 DOCUMENTAÇÃO SOBRE SENHA E REQUISITOS
 https://learn.microsoft.com/pt-br/aspnet/core/security/authentication/identity-configuration?view=aspnetcore-7.0#password
+
+----------------------------------------------------
+!!!!!MUITO IMPORTANTE!!!!!!
+CRIAÇÃO E USO DE SECRETS
+
+as informações ficam gravadas em %AppData%\Roaming\Microsoft\UserSecrets
+
+na raíz do projeto rodar o comando abaixo
+dotnet user-secrets init
+
+para o SymmetricSecurityKey/Encoding rodar o comando abaixo *chave aleatória
+dotnet user-secrets set "SymmetricSecurityKey" "HDIUASHIASUDHIAUSODHIUOSAD" 
+
+para os dados de conexão com o banco de dados
+dotnet user-secrets set "ConnectionStrings:UsuarioConnection" "server=localhost;database=usuariodb;user=root;password=masterkey" 
+
 
